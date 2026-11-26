@@ -28,4 +28,10 @@ public partial class MainViewModel : ObservableObject
         if (Items.Contains(s))
             Items.Remove(s);
     }
+
+    [RelayCommand]
+    private async Task Tap(string s)
+    {
+        await Shell.Current.GoToAsync($"{nameof(DetailPage)}?text={Uri.EscapeDataString(s)}");
+    }
 }
