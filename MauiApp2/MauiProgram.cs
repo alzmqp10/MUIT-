@@ -1,5 +1,6 @@
 ﻿using MauiApp2.ViewModel;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Networking;
 
 namespace MauiApp2
 {
@@ -20,6 +21,7 @@ namespace MauiApp2
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddTransient<DetailPage>();
             builder.Services.AddTransient<DetailViewModel>();
+            builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
 
 #if DEBUG
     		builder.Logging.AddDebug();

@@ -1,11 +1,19 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Networking;
 
 namespace MauiApp2.ViewModel;
 
 public partial class MainViewModel : ObservableObject
 {
+    private readonly IConnectivity connectivity;
+
+    public MainViewModel(IConnectivity connectivity)
+    {
+        this.connectivity = connectivity;
+    }
+
     [ObservableProperty]
     private string text = string.Empty;
 
@@ -13,10 +21,16 @@ public partial class MainViewModel : ObservableObject
     private ObservableCollection<string> items = new();
 
     [RelayCommand]
-    private void Add()
+    private async Task Add()
     {
         if (string.IsNullOrWhiteSpace(Text))
             return;
+
+        if (connectivity.NetworkAccess != NetworkAccess.Internet)
+        {
+            await Shell.Current.DisplayAlertAsync("No Internet", "You are not connected to the internet", "OK");
+            return;
+        }
 
         Items.Add(Text);
         Text = string.Empty;
