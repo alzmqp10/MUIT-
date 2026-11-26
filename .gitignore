@@ -1,0 +1,13 @@
+# Visual Studio
+.vs/
+
+# Build output
+[Bb]in/
+[Oo]bj/
+
+# User-specific files
+*.user
+*.suo
+
+# MAUI / platform build artifacts
+.DS_Store
